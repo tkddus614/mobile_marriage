@@ -2,9 +2,22 @@
 import Image from "next/image"
 import { styled } from "styled-components"
 import CountdownTimer from "./countdown"
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import {CopyToClipboard} from "react-copy-to-clipboard/src";
+import Carousel from "./Carousel";
 
 export default function Home() {
+  const [openMoney1, setOpenMoney1] = useState(true)
+  const [openMoney2, setOpenMoney2] = useState(true)
+  const [kakaoLoaded, setKakaoLoaded] = useState(false);
+
+  const handleOpenMoeny1 = () => {
+    setOpenMoney1(!openMoney1)
+  }
+
+  const handleOpenMoeny2 = () => {
+    setOpenMoney2(!openMoney2)
+  }
 
   useEffect(() => {
     const kakaoMapScript = document.createElement('script')
@@ -26,6 +39,58 @@ export default function Home() {
   
     kakaoMapScript.addEventListener('load', onLoadKakaoAPI)
   }, [])
+
+  useEffect(() => {
+    if (kakaoLoaded) {
+      window.kakao.maps.load(() => {
+        var container = document.getElementById('map')
+        var options = {
+          center: new window.kakao.maps.LatLng(36.995280, 127.927598),
+          level: 3,
+        }
+
+        var map = new window.kakao.maps.Map(container, options)
+      });
+    }
+  }, [kakaoLoaded]);
+
+  const handleKakaoShare = () => {
+    // Replace 'YOUR_APP_KEY' with your Kakao app key
+    Kakao.init(process.env.NEXT_PUBLIC_KAKAO_APP_KEY);
+
+    Kakao.Link.sendDefault({
+      objectType: "feed",
+      content: {
+        title: "Your shared content title",
+        imageUrl: "URL_of_your_image",
+        link: {
+          mobileWebUrl: "URL_to_open_on_mobile",
+          webUrl: "URL_to_open_on_web",
+        },
+      },
+      buttons: [
+        {
+          title: "Visit Website",
+          link: {
+            mobileWebUrl: "URL_to_open_on_mobile",
+            webUrl: "URL_to_open_on_web",
+          },
+        },
+      ],
+    });
+  };
+
+  const handleLinkShare = () => {
+    if (navigator.clipboard) {
+      navigator.clipboard
+        .writeText(window && window.location.href)
+        .then(() => {
+        })
+        .catch(() => {
+          alert("복사를 다시 시도해주세요.");
+        });
+    }
+  };
 
   return (
     <Container>
@@ -51,14 +116,15 @@ export default function Home() {
       </MarryContainer>
       <CalendarWrap>
         <div className="title">2023년 09월 16일</div>
-        <div>토요일 오후 1시 30분</div>
+        <div style={{marginTop: '5px'}}>토요일 오후 1시 30분</div>
         <CalendarContainer>
-          asd
+        <Image src='/calendar.png' width={249} height={183} alt='flower' />
         </CalendarContainer>
         <CountdownTimer />
       </CalendarWrap>
       <GalaryWrap>
-        <div className="title">갤러리</div>
+        <div className="title" style={{marginBottom: '20px'}}>갤러리</div>
+        <Carousel />
       </GalaryWrap>
       <ComeonWrap>
         <div className="title">오시는 길</div>
@@ -67,9 +133,160 @@ export default function Home() {
         </KakaoMap>
         <div className="desc">네스트 웨딩홀<br />충청북도 충주시 금릉동 25-5</div>
       </ComeonWrap>
+      <MindWrap>
+      <Image src='/mind.svg' width={28} height={28} alt='flower' />
+        <div className="title">마음 전하실 곳</div>
+        <div style={{marginTop: '38px'}}>
+          <Money onClick={handleOpenMoeny1}><div>신랑측 계좌번호</div></Money>
+          {openMoney1 && (
+          <MoneyOpen1> 
+            <MoneyIndividual>
+              <div>신랑 &nbsp;&nbsp;&nbsp;김상연</div>
+              <CopyToClipboard text="우리 1002859241223" onCopy={() => alert("클립보드에 복사되었습니다.")}>
+              <div style={{display: 'flex', justifyContent: 'space-between'}}>
+                <div style={{lineHeight: '32px'}}>우리 1002859241223</div>
+                <CopyButton>복사</CopyButton>
+              </div>
+              </CopyToClipboard>
+            </MoneyIndividual>
+            <MoneyIndividual>
+              <div>아버님 김도영</div>
+              <CopyToClipboard text="농협 33602008602" onCopy={() => alert("클립보드에 복사되었습니다.")}>
+              <div style={{display: 'flex', justifyContent: 'space-between'}}>
+              <div style={{lineHeight: '32px'}}>농협 33602008602</div>
+                <CopyButton>복사</CopyButton>
+              </div>
+              </CopyToClipboard>
+            </MoneyIndividual>
+            <MoneyIndividual>
+              <div>어머님 임현미</div>
+              <CopyToClipboard text="농협 17908356017531" onCopy={() => alert("클립보드에 복사되었습니다.")}>
+              <div style={{display: 'flex', justifyContent: 'space-between'}}>
+              <div style={{lineHeight: '32px'}}>농협 17908356017531</div>
+                <CopyButton>복사</CopyButton>
+              </div>
+              </CopyToClipboard>
+            </MoneyIndividual>
+        </MoneyOpen1>
+          )}
+          <Money onClick={handleOpenMoeny2} style={{marginTop: "35px"}}><div>신부측 계좌번호</div></Money>
+          {openMoney2 && (
+          <MoneyOpen1>
+            <MoneyIndividual>
+              <div>신부 &nbsp;&nbsp;&nbsp;최은빈</div>
+              <CopyToClipboard text="신한 110310916440" onCopy={() => alert("클립보드에 복사되었습니다.")}>
+              <div style={{display: 'flex', justifyContent: 'space-between'}}>
+                <div style={{lineHeight: '32px'}}>신한 110310916440</div>
+                <CopyButton>복사</CopyButton>
+              </div>
+              </CopyToClipboard>
+            </MoneyIndividual>
+            <MoneyIndividual>
+              <div>아버님 최종덕</div>
+              <CopyToClipboard text="국민 17390104172743" onCopy={() => alert("클립보드에 복사되었습니다.")}>
+              <div style={{display: 'flex', justifyContent: 'space-between'}}>
+              <div style={{lineHeight: '32px'}}>국민 17390104172743</div>
+                <CopyButton>복사</CopyButton>
+              </div>
+              </CopyToClipboard>
+            </MoneyIndividual>
+            <MoneyIndividual>
+              <div>어머님 김혜정</div>
+              <CopyToClipboard text="하나 38281042104507" onCopy={() => alert("클립보드에 복사되었습니다.")}>
+              <div style={{display: 'flex', justifyContent: 'space-between'}}>
+              <div style={{lineHeight: '32px'}}>하나 38281042104507</div>
+                <CopyButton>복사</CopyButton>
+              </div>
+              </CopyToClipboard>
+            </MoneyIndividual>
+        </MoneyOpen1>
+          )}
+        </div>
+      </MindWrap>
+      <FooterWrap>
+        <div>간소하게 결혼식을 진행하고자합니다.<br/>축하 화환은 정중히 사양합니다.<br />좋은 마음만 감사히 받겠습니다.</div>
+        <ButtonWrap>
+          <div onClick={handleKakaoShare}><Image src='/btn_kakao.svg' width={54} height={54} alt="kakao" /><span>카카오톡 공유하기</span></div>
+          <div onClick={handleLinkShare}><Image src='/btn_share.svg' width={54} height={54} alt='share' /><span>링크 공유하기</span></div>
+        </ButtonWrap>
+      </FooterWrap>
     </Container>
   )
 }
+
+const MoneyIndividual = styled.div`
+  display: flex;
+  justify-content: space-between;
+`
+
+const ButtonWrap = styled.div`
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: 22px;
+  > div {
+    display: flex; 
+    flex-direction: column;
+    align-items: center; 
+    text-align: center; 
+    > span {
+      margin-top: 10px;
+    }
+  }
+`
+
+const FooterWrap = styled.div`
+  font-family: 'Cafe24';
+  font-size: 18px;
+  text-align: center;
+  background: #F6F5F5;
+  margin: 0 -1rem -2rem -1rem;
+  padding: 23px 0 40px;
+`
+
+const CopyButton = styled.button`
+  background: url('/copy.png') no-repeat 10px center;
+  background-size: 16px;
+  border: 1px solid #E1E1E1;
+  border-radius: 3px;
+  padding: 6px 10px 6px 30px;
+  margin-left: 20px;
+  cursor: pointer;
+`;
+
+const MoneyOpen1 = styled.div`
+  > div {
+    margin-top: 25px;
+    font-family: 'Cafe24';
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+  }
+`
+
+const Money = styled.div`
+  border-radius: 5px;
+  background: #F2EEEE;
+  padding: 17px 0;
+  font-family: 'Cafe24';
+  font-size: 18px
+  > div {
+    background: url('/chevron_up.svg') no-repeat right;
+    background-size: 10px;
+  }
+`
+
+const MindWrap = styled.div`
+  text-align: center;
+  padding: 33px 0 44px;
+  > div {
+    &.title {
+      margin-top: 10px;
+      font-style: normal;
+      font-size: 23px;
+      font-weight: 400;
+    }
+  }
+`
 
 const KakaoMap = styled.div`
   margin: 33px 0;
@@ -112,7 +329,7 @@ const CalendarContainer = styled.div`
   border-top: 1px solid #E8DFDF;
   border-bottom: 1px solid #E8DFDF;
   margin: 28px 0 17px;
-  padding: 27px 0 13px;
+  padding: 30px 0;
 `
 
 const CalendarWrap = styled.div`
@@ -178,10 +395,10 @@ const MarryContainer = styled.div`
 
 const MainImage = styled.div`
   width: 100%;
-  height: 500px;
+  height: 600px;
   margin-top: 15px;
   background: url('/main.png') no-repeat;
-  background-size: contain;
+  background-size: cover;
 `
 
 const HeaderDesc = styled.div`

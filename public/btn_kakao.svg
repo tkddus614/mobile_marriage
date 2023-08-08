@@ -1,0 +1,13 @@
+<svg width="54" height="54" viewBox="0 0 54 54" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="btn_kakao">
+<circle id="Oval" cx="27" cy="27" r="27" fill="#A68558"/>
+<g id="kakao">
+<mask id="mask0_18_263" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="16" y="17" width="22" height="20">
+<path id="Clip 2" fill-rule="evenodd" clip-rule="evenodd" d="M16.1053 17.0527H37.8947V36.9475H16.1053V17.0527Z" fill="white"/>
+</mask>
+<g mask="url(#mask0_18_263)">
+<path id="Fill 1" fill-rule="evenodd" clip-rule="evenodd" d="M27 17.0527C20.9825 17.0527 16.1053 20.8852 16.1053 25.6125C16.1053 28.6895 18.1716 31.3867 21.2735 32.896C21.0459 33.7412 20.4487 35.9587 20.329 36.4333C20.1812 37.0218 20.5461 37.0139 20.7847 36.8557C20.972 36.7313 23.7703 34.841 24.9782 34.025C25.633 34.1218 26.3087 34.1727 27 34.1727C33.0175 34.1727 37.8947 30.3399 37.8947 25.6125C37.8947 20.8852 33.0175 17.0527 27 17.0527Z" fill="white"/>
+</g>
+</g>
+</g>
+</svg>
