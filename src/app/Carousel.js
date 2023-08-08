@@ -78,7 +78,7 @@ const Carousel = () => {
                     src={item}
                     onClick={() => {
                         if (mainSwiperRef.current) {
-                            mainSwiperRef.current.swiper.slideTo(index);
+                            mainSwiperRef.current.swiper.slideTo(index + 1);
                         }
                     }}
                 />
