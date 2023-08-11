@@ -19,6 +19,18 @@ export default function Home() {
   };
 
   useEffect(() => {
+    const script = document.createElement('script')
+    script.src = 'https://developers.kakao.com/sdk/js/kakao.js'
+    script.async = true
+
+    document.body.appendChild(script)
+
+    return () => {
+      document.body.removeChild(script)
+    }
+  }, [])
+
+  useEffect(() => {
     const kakaoMapScript = document.createElement("script");
     kakaoMapScript.async = false;
     kakaoMapScript.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.NEXT_PUBLIC_KAKAO_APP_KEY}&autoload=false`;
@@ -68,28 +80,39 @@ export default function Home() {
     }
   };
 
-  // const shareKakao = () => {
-  //   Kakao.Share.sendDefault({
-  //     objectType: "feed",
-  //     content: {
-  //       title: "모바일 청첩장",
-  //       description: "김상연 최은빈 결혼합니다.",
-  //       imageUrl:
-  //         "https://user-images.githubusercontent.com/73007012/259082689-ba6eb18d-b20b-426c-82c9-69b11de79a60.png",
-  //       link: {
-  //         mobileWebUrl: "https://mobile-marriage.vercel.app",
-  //       },
-  //     },
-  //     buttons: [
-  //       {
-  //         title: "나도 테스트 하러가기",
-  //         link: {
-  //           mobileWebUrl: "https://mobile-marriage.vercel.app",
-  //         },
-  //       },
-  //     ],
-  //   });
-  // };
+  const shareKakao = () => {
+    if (window.Kakao) {
+      const kakao = window.Kakao
+
+      if (!kakao.isInitialized()) {
+        kakao.init(process.env.NEXT_PUBLIC_KAKAO_APP_KEY)
+      }
+
+      kakao.Link.createDefaultButton({
+        // Render 부분 id=kakao-link-btn 을 찾아 그부분에 렌더링을 합니다
+        container: '#kakao-link-btn',
+        objectType: 'feed',
+        content: {
+          title: '모바일 청첩장',
+          description: '최은빈 김상연 결혼합니다.',
+          imageUrl: 'https://user-images.githubusercontent.com/73007012/259082689-ba6eb18d-b20b-426c-82c9-69b11de79a60.png',
+          link: {
+            mobileWebUrl: 'https://mobile-marriage.vercel.app',
+            webUrl: 'https://mobile-marriage.vercel.app',
+          },
+        },
+        buttons: [
+          {
+            title: '웹으로 보기',
+            link: {
+              mobileWebUrl: 'https://mobile-marriage.vercel.app',
+              webUrl: 'https://mobile-marriage.vercel.app',
+            },
+          },
+        ],
+      })
+    }
+  };
 
   return (
     <Container>
@@ -293,7 +316,7 @@ export default function Home() {
           좋은 마음만 감사히 받겠습니다.
         </div>
         <ButtonWrap>
-          <div>
+          <div id="kakao-link-btn" onClick={shareKakao}>
             <Image src="/btn_kakao.svg" width={54} height={54} alt="kakao" />
             <span>카카오톡 공유하기</span>
           </div>
