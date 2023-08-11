@@ -6,8 +6,6 @@ import { useEffect, useState } from "react";
 import { CopyToClipboard } from "react-copy-to-clipboard/src";
 import Carousel from "./Carousel";
 
-const { Kakao } = window;
-
 export default function Home() {
   const [openMoney1, setOpenMoney1] = useState(true);
   const [openMoney2, setOpenMoney2] = useState(true);
@@ -20,14 +18,6 @@ export default function Home() {
   const handleOpenMoeny2 = () => {
     setOpenMoney2(!openMoney2);
   };
-
-  useEffect(() => {
-    if (kakaoLoaded) {
-      console.log("kakao", window.kakao);
-      window.Kakao.init(process.env.NEXT_PUBLIC_KAKAO_APP_KEY);
-      setKakaoLoaded(true);
-    }
-  }, []);
 
   useEffect(() => {
     const kakaoMapScript = document.createElement("script");
@@ -77,30 +67,28 @@ export default function Home() {
     }
   };
 
-  const shareKakao = () => {
-    Kakao.Share.sendDefault({
-      objectType: "feed",
-      content: {
-        title: "모바일 청첩장",
-        description: "김상연 최은빈 결혼합니다.",
-        imageUrl:
-          "https://user-images.githubusercontent.com/73007012/259082689-ba6eb18d-b20b-426c-82c9-69b11de79a60.png",
-        link: {
-          mobileWebUrl: "https://mobile-marriage.vercel.app",
-        },
-      },
-      buttons: [
-        {
-          title: "나도 테스트 하러가기",
-          link: {
-            mobileWebUrl: "https://mobile-marriage.vercel.app",
-          },
-        },
-      ],
-    });
-  };
-
-  console.log("kakao", Kakao);
+  // const shareKakao = () => {
+  //   Kakao.Share.sendDefault({
+  //     objectType: "feed",
+  //     content: {
+  //       title: "모바일 청첩장",
+  //       description: "김상연 최은빈 결혼합니다.",
+  //       imageUrl:
+  //         "https://user-images.githubusercontent.com/73007012/259082689-ba6eb18d-b20b-426c-82c9-69b11de79a60.png",
+  //       link: {
+  //         mobileWebUrl: "https://mobile-marriage.vercel.app",
+  //       },
+  //     },
+  //     buttons: [
+  //       {
+  //         title: "나도 테스트 하러가기",
+  //         link: {
+  //           mobileWebUrl: "https://mobile-marriage.vercel.app",
+  //         },
+  //       },
+  //     ],
+  //   });
+  // };
 
   return (
     <Container>
@@ -302,7 +290,7 @@ export default function Home() {
           좋은 마음만 감사히 받겠습니다.
         </div>
         <ButtonWrap>
-          <div onClick={shareKakao}>
+          <div>
             <Image src="/btn_kakao.svg" width={54} height={54} alt="kakao" />
             <span>카카오톡 공유하기</span>
           </div>
