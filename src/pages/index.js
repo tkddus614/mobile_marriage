@@ -339,7 +339,7 @@ const FooterWrap = styled.div`
 
 const CopyButton = styled.button`
   background: url("/copy.png") no-repeat 10px center;
-  background-size: 16px;
+  background-size: 14px;
   border: 1px solid #e1e1e1;
   border-radius: 3px;
   padding: 6px 10px 6px 30px;
