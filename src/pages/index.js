@@ -1,9 +1,8 @@
-"use client";
 import Image from "next/image";
 import { styled } from "styled-components";
 import CountdownTimer from "./countdown";
 import { useEffect, useState } from "react";
-import { CopyToClipboard } from "react-copy-to-clipboard/src";
+import { CopyToClipboard } from "react-copy-to-clipboard";
 import Carousel from "./Carousel";
 
 export default function Home() {
