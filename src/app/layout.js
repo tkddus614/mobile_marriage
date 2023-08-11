@@ -7,9 +7,9 @@ export default function RootLayout({ children }) {
   return (
     <html lang="ko">
       <Head>
+        <meta property="og:title" content="모바일 청첩장" />
         <meta property="og:url" content="https://mobile-marriage.vercel.app" />
         <meta property="og:type" content="website" />
-        <meta property="og:title" content="모바일 청첩장" />
         <meta property="og:description" content="김상연 최은빈 결혼합니다." />
         <meta
           property="og:image"
