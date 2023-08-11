@@ -12,11 +12,6 @@ export default function Home() {
   const [openMoney1, setOpenMoney1] = useState(true);
   const [openMoney2, setOpenMoney2] = useState(true);
   const [kakaoLoaded, setKakaoLoaded] = useState(false);
-  const [kakaoLoaded1, setKakaoLoaded1] = useState(false);
-
-  const realUrl = "https://mobile-marriage.vercel.app";
-  // 로컬 주소 (localhost 3000 같은거)
-  const resultUrl = window.location.href;
 
   const handleOpenMoeny1 = () => {
     setOpenMoney1(!openMoney1);
@@ -27,7 +22,7 @@ export default function Home() {
   };
 
   useEffect(() => {
-    if (window.Kakao) {
+    if (kakaoLoaded) {
       console.log("kakao", window.kakao);
       window.Kakao.init(process.env.NEXT_PUBLIC_KAKAO_APP_KEY);
       setKakaoLoaded(true);
@@ -83,28 +78,26 @@ export default function Home() {
   };
 
   const shareKakao = () => {
-    if (kakaoLoaded && window.Kakao.Share) {
-      Kakao.Share.sendDefault({
-        objectType: "feed",
-        content: {
-          title: "오늘의 디저트",
-          description: "아메리카노, 빵, 케익",
-          imageUrl:
-            "https://mud-kage.kakao.com/dn/NTmhS/btqfEUdFAUf/FjKzkZsnoeE4o19klTOVI1/openlink_640x640s.jpg",
+    Kakao.Share.sendDefault({
+      objectType: "feed",
+      content: {
+        title: "모바일 청첩장",
+        description: "김상연 최은빈 결혼합니다.",
+        imageUrl:
+          "https://user-images.githubusercontent.com/73007012/259082689-ba6eb18d-b20b-426c-82c9-69b11de79a60.png",
+        link: {
+          mobileWebUrl: "https://mobile-marriage.vercel.app",
+        },
+      },
+      buttons: [
+        {
+          title: "나도 테스트 하러가기",
           link: {
-            mobileWebUrl: realUrl,
+            mobileWebUrl: "https://mobile-marriage.vercel.app",
           },
         },
-        buttons: [
-          {
-            title: "나도 테스트 하러가기",
-            link: {
-              mobileWebUrl: realUrl,
-            },
-          },
-        ],
-      });
-    }
+      ],
+    });
   };
 
   console.log("kakao", Kakao);
