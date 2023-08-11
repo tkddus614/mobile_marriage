@@ -106,7 +106,7 @@ export default function Home() {
             alignItems: "center",
           }}
         >
-          <Image src="/calendar.png" width={47} height={52} alt="date" />
+          <Image src="/calendar.svg" width={47} height={52} alt="date" />
         </div>
       </Header>
       <hr style={{ color: "#C2C2C2", marginTop: "22px", width: "49px" }} />
