@@ -21,12 +21,12 @@ const Container = styled.div`
 const ThumbSlideContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: 5px;
   justify-content: space-between;
 `;
 
 const ThumbSlideWrapper = styled.div`
-  width: 22%;
+  width: 23.5%;
 `;
 
 const ThumbSlide = styled.div`
@@ -42,13 +42,11 @@ const CustomSwiper = styled(Swiper)`
   .swiper-button-prev {
     left: 10px;
     color: black;
-    font-size: 30px;
   }
 
   .swiper-button-next {
     right: 10px;
     color: black;
-    font-size: 30px;
   }
 
   .swiper-button-next::after,

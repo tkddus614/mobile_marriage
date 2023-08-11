@@ -30,6 +30,8 @@ export default function Home() {
         var options = {
           center: new window.kakao.maps.LatLng(36.99528, 127.927598),
           level: 3,
+          scrollwheel: false,
+          draggable: false,
         };
 
         var map = new window.kakao.maps.Map(container, options);
@@ -104,7 +106,7 @@ export default function Home() {
             alignItems: "center",
           }}
         >
-          <Image src="/calendar.svg" width={47} height={52} alt="date" />
+          <Image src="/calendar.png" width={47} height={52} alt="date" />
         </div>
       </Header>
       <hr style={{ color: "#C2C2C2", marginTop: "22px", width: "49px" }} />
@@ -133,8 +135,10 @@ export default function Home() {
           <hr
             style={{
               width: "80%",
+              height: "1px",
               margin: "25px auto",
               backgroundColor: "#D1C5AD",
+              border: "0",
             }}
           />
           <div className="baby">
@@ -330,6 +334,7 @@ const FooterWrap = styled.div`
   background: #f6f5f5;
   margin: 0 -1rem -2rem -1rem;
   padding: 23px 0 40px;
+  line-height: 26px; /* 144.444% */
 `;
 
 const CopyButton = styled.button`
@@ -340,6 +345,7 @@ const CopyButton = styled.button`
   padding: 6px 10px 6px 30px;
   margin-left: 20px;
   cursor: pointer;
+  color: black;
 `;
 
 const MoneyOpen1 = styled.div`
@@ -396,6 +402,7 @@ const ComeonWrap = styled.div`
       font-size: 18px;
       font-style: normal;
       font-weight: 400;
+      line-height: 28px; /* 155.556% */
     }
   }
 `;
